@@ -1,6 +1,7 @@
 import com.codeborne.selenide.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.interactions.Actions;
 
@@ -19,12 +20,14 @@ public class DndTests {
         open("http://localhost:8080/");
     }
 
+    @DisplayName("Перетаскивание товара в корзину с помощью Drag and Drop")
     @Test
     void shouldAddItemToCartUsingDragAndDrop() {
         firstProductCard.dragAndDrop(DragAndDropOptions.to(cartButton));
 
     }
 
+    @DisplayName("Перетаскивание товара в корзину с помощью Drag and Drop (через Actions)")
     @Test
     void shouldAddItemToCartUsingDragAndDropActions() {
         actions().moveToElement(firstProductCard)
@@ -36,6 +39,7 @@ public class DndTests {
                 .perform();
     }
 
+    @DisplayName("Перетаскивание товара в корзину с помощью Drag and Drop (через Coordinates)")
     @Test
     void shouldAddItemToCartUsingDragAndDropXy() {
         int firstProductCardX = firstProductCard.getCoordinates().inViewPort().getX() + firstProductCard.getSize().getWidth()/2;
@@ -53,6 +57,8 @@ public class DndTests {
         dndActions.release().perform();
     }
 
+
+    @DisplayName("Проверка, что удаленный товар не отображается в корзине")
     @Test
     void shouldRemoveProductFromCart() {
         firstProductCard.dragAndDrop(DragAndDropOptions.to(cartButton));
